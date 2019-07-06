@@ -1,0 +1,42 @@
+@import-normalize;
+
+// palette
+$honesto-purple: #ab61e5;
+$honesto-black-pearl: #031323;
+$honesto-gray: hsl(211, 11%, 39%);
+$honesto-alabaster: #f2f3f4;
+
+// bulma setup
+$family-sans-serif: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+sans-serif;
+$button-background-color: $honesto-purple;
+$button-border-color: none;
+$button-color: white;
+$button-padding-horizontal: 1.5em;
+$button-disabled-background-color: #acb1b6;
+$navbar-background-color: $honesto-alabaster;
+
+@import "bulma/bulma.sass";
+
+body {
+  margin: 0;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+a {
+  color: $honesto-black-pearl;
+}
+
+.button-normal {
+  background-color: white;
+  color: $honesto-black-pearl;
+  border: 1px solid #d9dcde;
+}
