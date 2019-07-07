@@ -1,0 +1,190 @@
+import React from 'react';
+import { inject, observer } from 'mobx-react';
+import cx from 'classnames';
+import { Link } from 'react-router-dom';
+
+import { Question } from './Question';
+import styles from './FeedbackWizard.module.scss';
+
+@inject('wizard')
+@observer
+class FeedbackWizard extends React.Component {
+  state = {
+    currentQuestionIndex: 0,
+  };
+
+  componentDidMount() {
+    const { userId } = this.props.match.params;
+
+    this.props.wizard.setCurrentUserId(parseInt(userId, 10));
+    this.setCurrentQuestionIndex();
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevLocationSearch = prevProps.location.search;
+    const locationSearch = this.props.location.search;
+
+    if (prevLocationSearch !== locationSearch) {
+      this.setCurrentQuestionIndex();
+    }
+  }
+
+  setCurrentQuestionIndex() {
+    const DEFAULT = 0;
+    const params = new URLSearchParams(this.props.location.search);
+
+    const currentIndex = parseInt(params.get('question'), 10);
+
+    if (!currentIndex || currentIndex < 0) {
+      return this.setState(() => ({
+        currentQuestionIndex: DEFAULT,
+      }));
+    }
+
+    this.setState(() => ({
+      currentQuestionIndex: currentIndex,
+    }));
+  }
+
+  get disablePreviousButton() {
+    return this.currentQuestion === 0;
+  }
+
+  get disableNextButton() {
+    const { wizard } = this.props;
+    const { currentQuestionIndex } = this.state;
+
+    return !(
+      typeof wizard.questions[currentQuestionIndex].value !== 'undefined'
+    );
+  }
+
+  get showFinishButton() {
+    const { wizard } = this.props;
+    const { currentQuestionIndex } = this.state;
+
+    return currentQuestionIndex === wizard.total - 1;
+  }
+
+  get previousLink() {
+    const { currentQuestionIndex } = this.state;
+    const { userId } = this.props.match.params;
+    const previousQuestion = currentQuestionIndex - 1;
+
+    if (previousQuestion < 0) {
+      return '/share-feedback';
+    }
+
+    return `/wizard/${userId}?question=${previousQuestion}`;
+  }
+
+  get nextLink() {
+    const { wizard } = this.props;
+    const { userId } = this.props.match.params;
+    const { currentQuestionIndex } = this.state;
+    const nextQuestion = currentQuestionIndex + 1;
+
+    if (nextQuestion === wizard.total) {
+      return '/share-feedback';
+    }
+
+    return `/wizard/${userId}?question=${nextQuestion}`;
+  }
+
+  handlePreviousButton = () => {
+    if (this.disablePreviousButton) {
+      return;
+    }
+
+    this.props.history.push(this.previousLink);
+  };
+
+  handleNextButton = () => {
+    if (this.disableNextButton) {
+      return;
+    }
+
+    this.props.history.push(this.nextLink);
+  };
+
+  handleSkipButton = () => {
+    this.props.history.push(this.nextLink);
+  };
+
+  render() {
+    const { history, wizard } = this.props;
+    const { currentQuestionIndex } = this.state;
+
+    const CURRENT_QUESTION = wizard.questions[currentQuestionIndex];
+
+    return (
+      <article className={styles.root}>
+        <div className={cx('hero', styles.head)}>
+          <Link
+            className={styles.smallText}
+            to="#"
+            onClick={() => history.goBack()}
+          >
+            {'<'} Back
+          </Link>
+
+          <br />
+          <h1 className="title">{CURRENT_QUESTION.question}</h1>
+          <h3 className={cx('subtitle', styles.subtitle, styles.smallText)}>
+            Share your feedback with %user name%
+          </h3>
+        </div>
+
+        <div className={styles.box}>
+          <div className={styles.questionContainer}>
+            <Question {...CURRENT_QUESTION} setAnswer={wizard.setAnswer} />
+          </div>
+          <div className={styles.navBar}>
+            <button
+              className="button"
+              disabled={this.disablePreviousButton}
+              onClick={this.handlePreviousButton}
+            >
+              Previous
+            </button>
+            <button className="button" onClick={this.handleSkipButton}>
+              Skip
+            </button>
+            {!this.showFinishButton && (
+              <button
+                className="button"
+                disabled={this.disableNextButton}
+                onClick={this.handleSkipButton}
+              >
+                Next
+              </button>
+            )}
+            {this.showFinishButton && (
+              <button className="button" disabled={this.disableNextButton}>
+                Finish
+              </button>
+            )}
+          </div>
+
+          <div className={styles.progressBar}>
+            <div
+              className={styles.progressBarCompleted}
+              style={{ width: `${wizard.progress}%` }}
+            />
+          </div>
+
+          <div className={styles.footerBar}>
+            <div className="left">
+              <div className={styles.smallText}>Questions completed</div>
+              <div>
+                {wizard.completed} / {wizard.total}
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    );
+  }
+}
+
+export default FeedbackWizard;

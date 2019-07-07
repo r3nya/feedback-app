@@ -1,0 +1,24 @@
+.root {
+  align-items: center;
+  border-bottom: 1px solid rgba(172, 177, 182, 0.33);
+  display: flex;
+  padding: 1em;
+  width: 100%;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: #fbf7fe;
+  }
+}
+
+.avatar {
+  margin-right: 1.5em;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+}
+
+.left {
+  display: inherit;
+  align-items: center;
+}

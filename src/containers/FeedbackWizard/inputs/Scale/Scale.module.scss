@@ -1,0 +1,31 @@
+@import "index.scss";
+
+.root {
+  width: 100%;
+}
+
+.scaleContainer {
+  display: flex;
+
+}
+
+.scaleItem {
+  width: 74px;
+  height: 74px;
+  background: #F2F3F4;
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  display: block;
+}
+
+.selected {
+  background: #7F0FD7;
+}
+
+.hovered {
+  background: #AB61E5;
+}
+
+.score {
+
+}

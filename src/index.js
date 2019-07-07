@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router';
 import { createBrowserHistory } from 'history';
+import { Provider } from 'mobx-react';
+import stores from './stores';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
@@ -9,9 +11,11 @@ import './index.scss';
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  <Router history={history}>
-    <App />
-  </Router>,
+  <Provider {...stores}>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById('root'),
 );
 

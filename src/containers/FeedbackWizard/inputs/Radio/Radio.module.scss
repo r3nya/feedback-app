@@ -1,0 +1,30 @@
+@import "index.scss";
+
+.root {
+}
+
+.item {
+  text-align: left;
+  background-color: $honesto-alabaster;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $honesto-gray;
+    color: #fff;
+
+    & > strong {
+      color: #fff;
+    }
+  }
+}
+
+.selected {
+  background-color: $honesto-gray;
+  color: #fff;
+
+  & > strong {
+    color: #fff;
+  }
+}
