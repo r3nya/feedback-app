@@ -15,7 +15,7 @@ const ShowFeedback = ({
   <div className={cx('columns is-gapless', styles.main)}>
     <div className={cx('column is-one-third', styles.firstBlock)}>
       <div className="column">
-        <h6 className="title is-6">{subTitle}</h6>
+        <h6 className="title h-small-text">{subTitle}</h6>
       </div>
 
       {users.map((item, idx) => (

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Question } from './Question';
 import styles from './FeedbackWizard.module.scss';
 
-@inject('wizard', 'myFeedback')
+@inject('wizard', 'myFeedback', 'team')
 @observer
 class FeedbackWizard extends React.Component {
   state = {
@@ -51,7 +51,7 @@ class FeedbackWizard extends React.Component {
   }
 
   get disablePreviousButton() {
-    return this.currentQuestion === 0;
+    return this.state.currentQuestionIndex === 0;
   }
 
   get disableNextButton() {
@@ -59,7 +59,8 @@ class FeedbackWizard extends React.Component {
     const { currentQuestionIndex } = this.state;
 
     return !(
-      typeof wizard.questions[currentQuestionIndex].value !== 'undefined'
+      typeof wizard.questions[currentQuestionIndex].value !== 'undefined' &&
+      wizard.questions[currentQuestionIndex].value
     );
   }
 
@@ -112,7 +113,14 @@ class FeedbackWizard extends React.Component {
   };
 
   handleSkipButton = () => {
-    this.props.history.push(this.nextLink);
+    const { history, wizard } = this.props;
+    wizard.skipQuestion(this.currentQuestion.id);
+
+    if (!this.showFinishButton) {
+      return history.push(this.nextLink);
+    }
+
+    return this.handleFinishButton();
   };
 
   handleFinishButton = () => {
@@ -128,8 +136,13 @@ class FeedbackWizard extends React.Component {
     history.push('/my-feedback');
   };
 
+  get currentQuestion() {
+    const { currentQuestionIndex } = this.state;
+    return this.props.wizard.questions[currentQuestionIndex];
+  }
+
   render() {
-    const { history, wizard } = this.props;
+    const { history, wizard, team } = this.props;
     const { currentQuestionIndex } = this.state;
 
     const CURRENT_QUESTION = wizard.questions[currentQuestionIndex];
@@ -138,7 +151,7 @@ class FeedbackWizard extends React.Component {
       <article className={styles.root}>
         <div className={cx('hero', styles.head)}>
           <Link
-            className={styles.smallText}
+            className="h-small-text"
             to="#"
             onClick={() => history.goBack()}
           >
@@ -147,8 +160,10 @@ class FeedbackWizard extends React.Component {
 
           <br />
           <h1 className="title">{CURRENT_QUESTION.question}</h1>
-          <h3 className={cx('subtitle', styles.subtitle, styles.smallText)}>
-            Share your feedback with %user name%
+          <h3
+            className={cx('h6-small-text', styles.subtitle, styles.smallText)}
+          >
+            Share your feedback with {team.getUserById(this.currentUserId).name}
           </h3>
         </div>
 
@@ -171,7 +186,7 @@ class FeedbackWizard extends React.Component {
               <button
                 className="button"
                 disabled={this.disableNextButton}
-                onClick={this.handleSkipButton}
+                onClick={this.handleNextButton}
               >
                 Next
               </button>

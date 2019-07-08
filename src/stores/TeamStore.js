@@ -9,6 +9,8 @@ class TeamStore {
 
   @observable
   users = [];
+
+  getUserById = userId => this.users.find(user => user.id === userId);
 }
 
 export default new TeamStore();

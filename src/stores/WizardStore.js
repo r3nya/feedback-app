@@ -29,7 +29,9 @@ class WizardStore {
   @computed
   get completed() {
     return this.questions.filter(
-      question => typeof question.value !== 'undefined',
+      question =>
+        typeof question.value !== 'undefined' ||
+        typeof question.skipped !== 'undefined',
     ).length;
   }
 
@@ -53,6 +55,18 @@ class WizardStore {
       question => questionId === question.id,
     );
     this.questions[questionIndex] = { ...this.questions[questionIndex], value };
+  };
+
+  @action
+  skipQuestion = questionId => {
+    const questionIndex = this.questions.findIndex(
+      question => questionId === question.id,
+    );
+    this.questions[questionIndex] = {
+      ...this.questions[questionIndex],
+      skipped: true,
+      value: undefined,
+    };
   };
 
   @action
