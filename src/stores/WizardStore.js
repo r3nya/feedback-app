@@ -54,7 +54,11 @@ class WizardStore {
     const questionIndex = this.questions.findIndex(
       question => questionId === question.id,
     );
-    this.questions[questionIndex] = { ...this.questions[questionIndex], value };
+    this.questions[questionIndex] = {
+      ...this.questions[questionIndex],
+      value,
+      skipped: undefined,
+    };
   };
 
   @action
