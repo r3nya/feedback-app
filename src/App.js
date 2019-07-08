@@ -9,7 +9,6 @@ import { FeedbackWizard } from 'containers/FeedbackWizard';
 import { Teams } from 'containers/Teams';
 import { Logout } from 'containers/Logout';
 import { NotFoundPage } from 'containers/NotFoundPage';
-import './App.css';
 
 const App = props => {
   const [auth, setAuth] = useState(false);
