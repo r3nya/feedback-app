@@ -21,7 +21,7 @@ class MyFeedback extends React.Component {
 
         {myFeedback.isMyFeedbackExist && (
           <>
-            <FeedbackTopBar title="My Feedback" hidePublishButton={false} />
+            <FeedbackTopBar title="My Feedback" />
 
             <ShowFeedback
               onUserSelect={this.handleUserSelect}
