@@ -12,7 +12,7 @@ import { NotFoundPage } from 'containers/NotFoundPage';
 import './App.css';
 
 const App = props => {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
   const { push } = props.history;
 
   const handleLogin = useCallback(() => {
