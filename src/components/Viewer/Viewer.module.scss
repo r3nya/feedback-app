@@ -1,0 +1,45 @@
+$omg-color: #DE521D;
+$very-low-color: #FF8C21;
+$so-so-color: #F5DD07;
+$not-bad-color: #91D958;
+$awesome-color: #2BBF6A;
+
+.root {
+  padding: 1.5rem;
+  border-bottom: 1px solid #D9DCDE;
+  display: flex;
+}
+
+.omg {
+  background-color: $omg-color !important;
+}
+
+.very-low {
+  background-color: $very-low-color !important;
+}
+
+.so-so {
+  background-color: $so-so-color !important;
+}
+
+.not-bad {
+  background-color: $not-bad-color !important;
+}
+
+.awesome {
+  background-color: $awesome-color !important;
+}
+
+// BlockRender
+
+.blocks {
+  display: flex;
+}
+
+.block {
+  display: block;
+  flex: 1;
+  height: 28px;
+  background-color: #F2F3F4;
+  margin: 0 0.1rem;
+}

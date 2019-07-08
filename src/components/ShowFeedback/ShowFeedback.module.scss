@@ -1,0 +1,16 @@
+.main {
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  min-height: 60vh;
+}
+
+.firstBlock {
+  border-right: 1px solid #D9DCDE;
+
+  & > div:first-child {
+    border-bottom: 1px solid rgba(172, 177, 182, 0.33);
+  }
+}
+
+.userSelected {
+  background-color: #F2F3F4;
+}

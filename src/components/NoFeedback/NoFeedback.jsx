@@ -1,10 +1,9 @@
 import React from 'react';
-import cx from 'classnames';
 import styles from './NoFeedback.module.scss';
 
 const NoFeedback = () => (
   <div className="container">
-    <div className={cx('hero-container', styles.container)}>
+    <div className={styles.container}>
       <h1 className="title">
         No feedback to display
         <span role="img" aria-label="crystal-ball">

@@ -18,6 +18,9 @@ class WizardStore {
   @observable
   currentUserId;
 
+  @observable
+  currentUserProfile;
+
   @computed
   get total() {
     return this.questions.length;
@@ -50,6 +53,11 @@ class WizardStore {
       question => questionId === question.id,
     );
     this.questions[questionIndex] = { ...this.questions[questionIndex], value };
+  };
+
+  @action
+  resetProgress = () => {
+    this.questions = questions;
   };
 }
 

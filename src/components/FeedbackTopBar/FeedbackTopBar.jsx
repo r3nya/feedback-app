@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FeedbackPeriod } from './FeedbackPeriod';
 
-const FeedbackTopBar = ({ title = 'Feedback' }) => (
+const FeedbackTopBar = ({ title = 'Feedback', hidePublishButton = true }) => (
   <div className="level header">
     <div className="level-left">
       <div className="hero-container">
@@ -10,9 +10,11 @@ const FeedbackTopBar = ({ title = 'Feedback' }) => (
       </div>
     </div>
 
-    <div className="level-right right">
+    <div className="level-right">
       <FeedbackPeriod />
-      <button className="button right-button">Publish Feedback</button>
+      {!hidePublishButton && (
+        <button className="button right-button">Publish Feedback</button>
+      )}
     </div>
   </div>
 );

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Question } from './Question';
 import styles from './FeedbackWizard.module.scss';
 
-@inject('wizard')
+@inject('wizard', 'myFeedback')
 @observer
 class FeedbackWizard extends React.Component {
   state = {
@@ -14,9 +14,7 @@ class FeedbackWizard extends React.Component {
   };
 
   componentDidMount() {
-    const { userId } = this.props.match.params;
-
-    this.props.wizard.setCurrentUserId(parseInt(userId, 10));
+    this.props.wizard.setCurrentUserId(this.currentUserId);
     this.setCurrentQuestionIndex();
   }
 
@@ -44,6 +42,12 @@ class FeedbackWizard extends React.Component {
     this.setState(() => ({
       currentQuestionIndex: currentIndex,
     }));
+  }
+
+  get currentUserId() {
+    const { userId } = this.props.match.params;
+
+    return parseInt(userId, 10);
   }
 
   get disablePreviousButton() {
@@ -111,6 +115,18 @@ class FeedbackWizard extends React.Component {
     this.props.history.push(this.nextLink);
   };
 
+  handleFinishButton = () => {
+    const { wizard, myFeedback, history } = this.props;
+
+    const userProfile = myFeedback.findUserById(this.currentUserId);
+
+    myFeedback.save({ userProfile, questions: wizard.questions });
+    wizard.resetProgress();
+    myFeedback.removeUserById(this.currentUserId);
+
+    history.push('/my-feedback');
+  };
+
   render() {
     const { history, wizard } = this.props;
     const { currentQuestionIndex } = this.state;
@@ -160,7 +176,11 @@ class FeedbackWizard extends React.Component {
               </button>
             )}
             {this.showFinishButton && (
-              <button className="button" disabled={this.disableNextButton}>
+              <button
+                className="button"
+                disabled={this.disableNextButton}
+                onClick={this.handleFinishButton}
+              >
                 Finish
               </button>
             )}

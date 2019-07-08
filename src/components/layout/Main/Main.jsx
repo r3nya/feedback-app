@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { withRouter } from 'react-router';
 import { ScrollTop } from 'components/ScrollTop';
 import { Header } from '../Header';
-import { Footer } from '../Footer';
+// import { Footer } from '../Footer';
 
 const Main = ({ auth, children, history }) => {
+  const redirectToLogin = useCallback(() => history.push('/login'), [history]);
+
   useEffect(() => {
     if (!auth) {
-      history.push('/login');
+      redirectToLogin();
     }
-  }, []);
+  }, [auth, redirectToLogin]);
 
   return (
     <ScrollTop>
       {auth && <Header />}
 
-      <main className="container">{children}</main>
+      <main className={auth ? 'container' : ''}>{children}</main>
 
       {/** TODO: Add footer <Footer /> */}
     </ScrollTop>

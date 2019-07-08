@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.7.5",
+    "bulma-badge": "^3.0.1",
+    "bulma-extensions": "^6.2.7",
     "classnames": "^2.2.6",
     "lodash.get": "^4.4.2",
     "mobx": "^5.11.0",

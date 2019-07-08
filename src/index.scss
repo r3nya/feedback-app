@@ -18,6 +18,9 @@ $button-disabled-background-color: #acb1b6;
 $navbar-background-color: $honesto-alabaster;
 
 @import "bulma/bulma.sass";
+// node_modules/bulma-badge/dist/css/bulma-badge.sass
+@import "~bulma-badge/dist/css/bulma-badge.sass";
+@import "~bulma-extensions/bulma-tooltip/src/sass/index.sass";
 
 body {
   margin: 0;
@@ -33,4 +36,12 @@ code {
 
 a {
   color: $honesto-black-pearl;
+}
+
+[data-badge].has-badge-honesto::after {
+  background: $honesto-purple;
+}
+
+.is-active-link {
+  box-shadow: 0 1px 0 $honesto-purple;
 }

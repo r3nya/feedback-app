@@ -7,16 +7,23 @@ import { ShareFeedback } from 'containers/ShareFeedback';
 import { TeamFeedback } from 'containers/TeamFeedback';
 import { FeedbackWizard } from 'containers/FeedbackWizard';
 import { Teams } from 'containers/Teams';
+import { Logout } from 'containers/Logout';
+import { NotFoundPage } from 'containers/NotFoundPage';
 import './App.css';
 
 const App = props => {
-  // TODO: Set false by default
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
+  const { push } = props.history;
 
   const handleLogin = useCallback(() => {
     setAuth(true);
-    props.history.push('/share-feedback');
-  }, [setAuth]);
+    push('/share-feedback');
+  }, [setAuth, push]);
+
+  const handleLogout = useCallback(() => {
+    setAuth(false);
+    push('/login');
+  }, [setAuth, push]);
 
   return (
     <Main auth={auth}>
@@ -35,13 +42,17 @@ const App = props => {
         <Route exact path="/my-feedback" component={MyFeedback} />
         <Route exact path="/team-feedback" component={TeamFeedback} />
         <Route exact path="/teams" component={Teams} />
-        <Route exact path="/logout" />
+        <Route
+          exact
+          path="/logout"
+          render={props => <Logout {...props} onLogout={handleLogout} />}
+        />
         <Route
           exact
           path="/wizard/:userId([0-9]+)"
           component={FeedbackWizard}
         />
-        <Route path="*" render={() => '404'} />
+        <Route path="*" component={NotFoundPage} />
       </Switch>
     </Main>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import styles from './Scale.module.scss';
 
-const Scale = ({ maxValue = 10, setAnswer, id, value }) => {
+const Scale = ({ maxValue = 10, setAnswer, id, value, text }) => {
   const [hoveredItem, setHoveredItem] = useState(-1);
   const [selectedItem, setSelectedItem] = useState(-1);
 
@@ -21,13 +21,16 @@ const Scale = ({ maxValue = 10, setAnswer, id, value }) => {
   };
 
   const handleClick = idx => {
-    console.log('selected', idx);
     setSelectedItem(idx);
     setAnswer({ value: idx + 1, questionId: id });
   };
 
   return (
     <div className={styles.root}>
+      {text && <p className="is-size-5">{text}</p>}
+
+      <br />
+
       <div className={styles.scaleContainer}>
         {[...Array(maxValue)].map((_item, idx) => (
           <span
