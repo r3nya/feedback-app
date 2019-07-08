@@ -12,37 +12,56 @@ const Viewer = props => {
     case RADIO_TYPE:
       return (
         <div className={cx(styles.root)}>
-          <div className="column">{question}</div>
           <div className="column">
-            <BlocksRender
-              size={props.options.length}
-              value={props.value}
-              tooltip={props.options.find(item => item.id === props.value).text}
-              className={getClassNameForAnswer(
-                props.options.length,
-                props.value,
-              )}
-            />
+            {question}
+            {props.skipped && <Skipped />}
           </div>
+
+          {props.value && (
+            <div className="column">
+              <BlocksRender
+                size={props.options.length}
+                value={props.value}
+                tooltip={
+                  props.options.find(item => item.id === props.value).text
+                }
+                className={getClassNameForAnswer(
+                  props.options.length,
+                  props.value,
+                )}
+              />
+            </div>
+          )}
         </div>
       );
     case SCALE_TYPE:
       return (
         <div className={cx(styles.root)}>
-          <div className="column">{question}</div>
           <div className="column">
-            <BlocksRender
-              size={props.maxValue}
-              value={props.value}
-              className={getClassNameForAnswer(props.maxValue, props.value)}
-            />
+            {question}
+            {props.skipped && <Skipped />}
           </div>
+
+          {props.value && (
+            <div className="column">
+              <BlocksRender
+                size={props.maxValue}
+                value={props.value}
+                className={getClassNameForAnswer(props.maxValue, props.value)}
+              />
+            </div>
+          )}
         </div>
       );
     case TEXT_TYPE:
       return (
         <div className={styles.root}>
-          <div className="column">{props.value}</div>
+          <div className="column">
+            {question}
+            {props.skipped && <Skipped />}
+          </div>
+
+          {props.value && <div className="column">{props.value}</div>}
         </div>
       );
     default:
@@ -70,5 +89,12 @@ const BlocksRender = ({ size, className, value = 0, tooltip }) => {
     </div>
   );
 };
+
+const Skipped = () => (
+  <>
+    <br />
+    <span className="tag is-light">Skipped</span>
+  </>
+);
 
 export default Viewer;

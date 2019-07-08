@@ -44,3 +44,10 @@ a {
 .is-active-link {
   box-shadow: 0 1px 0 $honesto-purple;
 }
+
+.h-small-text {
+  font-size: 0.75rem;
+  line-height: 0.875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
