@@ -122,6 +122,7 @@ class FeedbackWizard extends React.Component {
 
     myFeedback.save({ userProfile, questions: wizard.questions });
     wizard.resetProgress();
+    myFeedback.selectUserId(this.currentUserId);
     myFeedback.removeUserById(this.currentUserId);
 
     history.push('/my-feedback');
