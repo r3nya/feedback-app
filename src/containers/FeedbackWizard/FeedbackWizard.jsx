@@ -14,7 +14,10 @@ class FeedbackWizard extends React.Component {
   };
 
   componentDidMount() {
-    this.props.wizard.setCurrentUserId(this.currentUserId);
+    const { wizard } = this.props;
+
+    wizard.resetProgress();
+    wizard.setCurrentUserId(this.currentUserId);
     this.setCurrentQuestionIndex();
   }
 
