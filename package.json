@@ -41,7 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
     "customize-cra": "^0.2.14",
     "node-sass": "^4.12.0",
     "now": "^15.7.0",
