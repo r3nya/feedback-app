@@ -10,7 +10,7 @@
     "lodash.get": "^4.4.2",
     "mobx": "^5.11.0",
     "mobx-react": "^6.1.1",
-    "react": "^16.8.6",
+    "react": "^16.13.1",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
